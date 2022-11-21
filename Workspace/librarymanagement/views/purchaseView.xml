@@ -1,0 +1,66 @@
+<odoo>
+        <record id="book_purchase_form" model="ir.ui.view">
+            <field name="name">book.purchase</field>
+            <field name="model">book.purchase</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="already_in_library"/>
+
+                                <!-- <field name="book_id" widget = "many2many_tags" attrs = "{'invisible':[('already_in_library','=','no')]}"/> -->
+                                
+                                <field name="new_name" attrs = "{'invisible':[('already_in_library','=','yes')]}"/>
+                            
+                            </group>
+
+                            <group>
+                                <field name="vendor_name"/>                                
+                                <field name="quantity"/>
+                            </group>
+                        </group>
+                    </sheet>
+
+                   <!--  <div class="oe_chatter" >
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div> -->
+
+                </form>
+            </field>
+        </record>
+
+
+
+          <!-- Tree View -->
+
+        <record id="book_purchase_tree" model="ir.ui.view">
+            <field name="name">book</field>
+            <field name="model">book.purchase</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <!-- <field name="book_id"/> -->
+                    <field name="vendor_name"/>                                
+                    <field name="quantity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_purchase_books" model="ir.actions.act_window">
+            <field name="name">book.purchase</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">book.purchase</field>
+            <field name="view_mode" >tree,form</field>
+            <field name="target" >current</field>
+        </record>
+
+
+
+         <menuitem id="menu_purchase" 
+                      name='purchase' 
+                      action="action_purchase_books"    
+                      parent="main_menu_libraries"
+                      sequence='3'/>
+</odoo>

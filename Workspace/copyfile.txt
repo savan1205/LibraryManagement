@@ -1,0 +1,21 @@
+source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+
+
+ python3 odoo-bin --addons-path=addons/,/home/odoo/Desktop/hmProject/workspace --xmlrpc-port 9071 -d v15hm -u hospital_management
+
+
+savan@icreativetechnolabs.com pass:admin123
+http://127.0.0.1/pgadmin4
+
+
+
+python3 odoo-bin --addons-path=addons/,/home/odoo/Desktop/hospital_management/Workspace/ --xmlrpc-port 9070 --db-filter v15_hospital_management_18082022 -u hospital_management
+
+
+python3 odoo-bin --addons-path=addons/,/home/odoo/Desktop/LibraryManagement/Workspace --xmlrpc-port 9050 -d v15library -u librarymanagement
+
+
+python3 odoo-bin --addons-path=addons/,/home/odoo/Desktop/LibraryManagement/Workspace --xmlrpc-port 9055 -d v15libraryManage -u librarymanagement
+
+
+

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_edit_library" model="mail.template">
+            <field name="name">library books: Send by email</field>
+            <field name="model_id" ref="librarymanagement.model_library_book"/>
+            <field name="subject">{{ object.name }}</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                              
+                        Hello, <t t-esc="object.Author"/>
+                        <br/><br/>
+                        Your 
+                       
+                        <br/><br/>
+                        Do not hesitate to contact us if you have any questions.
+                        <br/>
+                    </p>
+
+
+                    <table border= '1px solid black'>
+                        <tr border= '1px solid black'>
+                            <th>Visitor</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                        <t t-foreach="object.sale_history_ids" t-as="listt">
+                            <tr border= '1px solid black'>
+                                <td><t t-out="listt.visitor_id.name"/></td>
+                                <td><t t-out="listt.quantity"/></td>
+                                <td><t t-out="listt.price"/></td>
+                                <td><t t-out="listt.subtotal"/></td>
+                            </tr>
+                         
+                        </t>
+                    </table>
+                </div>
+            </field>
+            
+            <field name="lang">{{ object.partner_id.lang }}</field>
+           <!--  <field name="auto_delete" eval="True"/> -->
+        </record>
+
+
+         <!-- <record id="email_template_edit_library" model="mail.template">
+            <field name="name">library books: Send by email</field>
+            <field name="model_id" ref="sale.sale_order"/>
+            <field name="subject">{{ object.name }}</field>
+            <field name="email_from">{{ (object.user_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                     <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                              
+                        Hello, <t t-esc="object.Author"/>
+                        <br/><br/>
+                        Your 
+                       
+                        <br/><br/>
+                        Do not hesitate to contact us if you have any questions.
+                        <br/>
+                    </p>
+
+
+                    <table border= '1px solid black'>
+                      <tr border= '1px solid black'>
+                        <th>Visitor</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                      </tr>
+                        <t t-foreach="object.sale_history_ids" t-as="listt">
+                      <tr border= '1px solid black'>
+                        <td><t t-out="listt.visitor_id.name"/></td>
+                        <td><t t-out="listt.quantity"/></td>
+                        <td><t t-out="listt.price"/></td>
+                        <td><t t-out="listt.subtotal"/></td>
+                      </tr>
+                     
+                  </t>
+                    </table>
+                </div>
+            </field>
+            
+            <field name="lang">{{ object.partner_id.lang }}</field>
+        </record> -->
+           <!--  <field name="auto_delete" eval="True"/> -->
+
+
+    </data>
+</odoo>

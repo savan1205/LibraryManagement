@@ -1,0 +1,180 @@
+<odoo>
+        <record id="library_book_form" model="ir.ui.view">
+            <field name="name">book</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                <!-- M o v e   T o   S c r a p    B u t t o n -->
+
+                        <button name="move_to_scrap" type="object" class="oe_highlight" string="Move to Scrap" attrs="{'invisible':[('state','=','scrapped')]}"
+                            confirm="Are You Sure to move this Book to Scrap"/> 
+                        <button name="send_mail" type="object" class="oe_highlight" string="Send Mail"/> 
+                        <field name="stock" widget="statusbar" nolabel='1' options="{'clickable':'1'}"/>
+                    </header>
+
+                    <sheet> 
+                        <div class="oe_title">
+                            <h1>
+                                <field name="sequence_number"/>
+                            </h1>
+                        </div>
+                        
+                        <div>
+                            <h6>Ratings</h6>
+                            <h3>
+                                <field name="ratings" widget="priority" string="Ratings"/>
+                            </h3>
+                        </div>
+
+
+                <!--      S m a r t    B u t t o n -->
+
+                        <div class="oe_button_box" name="button_box" >
+                            <button name="action_total_sales" type="object" icon="fa-id-card-o" class="oe_stat_button" >       
+                                   
+                                    <div class="o_stat_info">
+                                        <field name="total" class="o_stat_value"/>
+                                        <span class="o_stat_text">total</span>
+                                    </div>
+
+                            </button>
+                        </div>
+                            <field name="image" widget="image"  class="my_image"/>
+
+                        <group>
+                            <group>                       
+                                <field name="name"/>
+                                <field name="Author"/>
+                                <field name="isbn_number" help="ISBN identifies the registrant as well as the specific title, edition and format."/>
+                            </group>
+
+                            <group>
+                                <field name="state"/>
+                                <field name="book_type"/>
+                                <field name="set_password" attrs="{'invisible':[('book_type','=','physical')]}" password='True' type = "password" widget="password"/>
+
+                                <field name="confirm_password" attrs="{'invisible':[('book_type','=','physical')]}" password='True' type = "password" widget="password"/>
+                            </group>    
+                        </group>  
+
+                    <!--     N o t e b o o k          -->
+
+                            <notebook>
+                                <page string="Sale History">
+                                    <field name="sale_history_ids">
+
+                                        <tree >
+                                            <field name="visitor_id"/>
+                                            <field name="purchase_date"/>
+                                            <field name="submission_date"/>
+                                            <field name="sell_type" />
+                                            <field name="days_left" attrs="{'invisible':[('sell_type','=','purchased')]}"/>
+                                            <field name="price"/>
+                                            <field name="quantity"/>
+                                            <field name="subtotal"/>
+                                        </tree>
+
+                                        <form>
+                                            <group>
+                                                <field name="visitor_id" />
+                                                <field name="sell_type"/>         
+                                                <field name="purchase_date"/>
+                                                <field name="submission_date" attrs="{'invisible':[('sell_type','=','purchased')]}"/>
+                                                <field name="days_left" attrs="{'invisible':[('sell_type','=','purchased')]}"/>
+                                                <field name="quantity"/>
+                                                <field name="price"/>
+                                                <field name="subtotal"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                    <group col="6" class="mt-2 mt-md-0"> 
+                                            <group colspan="4">
+                                                <field name="name" class="oe-bordered-editor" nolabel="1" placeholder="Terms and conditions..."/>
+                                            </group>
+                                        
+                                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                                <field name="total" widget="account-tax-totals-field" nolabel="1" colspan="2"/>
+                                            </group>
+                                        <div class="oe_clear"/>
+                                    </group>
+                                </page>
+                            </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+          <!-- Tree View -->
+        <record id="library_book_tree" model="ir.ui.view">
+            <field name="name">book</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name"/>
+                    <field name="book_type"/>
+                    <field name="isbn_number"/>                                
+
+                </tree>
+            </field>
+        </record>
+
+        <!--    S  e  a  r  c  h     V  i  e  w    -->
+        <record id="library_book_search" model="ir.ui.view">
+            <field name="name">book.search</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+               <search>
+                    <field name="name"/>
+                    <field name="isbn_number"/>
+               </search>
+           </field>
+        </record>
+
+
+
+
+
+    <!--         A  c  t  i  o  n         -->
+
+        <record id="action_library_books" model="ir.actions.act_window">
+            <field name="name">library book</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">library.book</field>
+            <field name="view_mode" >tree,form</field>
+            <field name="target" >current</field>
+        </record>
+
+
+    <!-- server action -->
+
+        <record id="model_action_book_discount" model="ir.actions.server">
+            <field name="name">Apply Discount</field>
+            <field name="model_id" ref="librarymanagement.model_library_book"/>
+            <field name="binding_model_id" ref="librarymanagement.model_library_book"/>
+            <field name="binding_view_types">list,form</field>
+            <field name="state">code</field>
+            <field name="code">records.action_discount()</field>
+        </record>
+
+
+        <!-- Scheduled server action -->
+
+         <record id="action_schedule_book_action" model="ir.cron">
+            <field name="name">Schedule the Cron for Book</field>
+            <field name="model_id" ref="librarymanagement.model_library_book"/>
+            <field name="state">code</field>
+            <field name="code">model.action_scheduled_book_action()</field>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>months</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+
+        <menuitem id="menu_book" 
+                      name='books' 
+                      action="action_library_books"    
+                      parent="main_menu_libraries"
+                      sequence='2'/>
+</odoo>

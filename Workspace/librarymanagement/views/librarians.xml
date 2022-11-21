@@ -1,0 +1,58 @@
+<odoo>
+        <record id="library_librarian_form" model="ir.ui.view">
+            <field name="name">librarian</field>
+            <field name="model">librarian.librarian</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                              <field name="name"/>
+                              <field name="gender"/>
+                              <field name="dob"/>
+                            </group>
+
+                            <group>
+                              <field name="age"/>
+                              <field name="date_of_joining"/>
+                              <field name="current_experience"/>
+                            </group>  
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+          <!-- Tree View -->
+        <record id="library_librarian_tree" model="ir.ui.view">
+            <field name="name">librarian</field>
+            <field name="model">librarian.librarian</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name"/>
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+
+      <record id="action_librarians" model="ir.actions.act_window">
+            <field name="name">librarian</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">librarian.librarian</field>
+            <field name="view_mode" >tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    create your librarian   
+                </p>
+            </field>
+        </record>
+        
+
+        <menuitem id="librarians" 
+              name='librarians' 
+              action="action_librarians"    
+              parent="main_menu_libraries"
+              sequence='0'/>
+</odoo>

@@ -1,0 +1,14 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+librarymanagement.access_library_management,access_library_management,librarymanagement.model_library_management,base.group_user,1,1,1,1
+
+librarymanagement.access_librarian_librarian,access_librarian_librarian,librarymanagement.model_librarian_librarian,base.group_user,1,1,1,1
+
+
+librarymanagement.access_visitor_visitor,access_visitor_visitor,librarymanagement.model_visitor_visitor,base.group_user,1,1,1,1
+
+librarymanagement.access_library_book,access_library_book,librarymanagement.model_library_book,base.group_user,1,1,1,1
+
+librarymanagement.access_sale_history,access_sale_history,librarymanagement.model_sale_history,base.group_user,1,1,1,1
+
+librarymanagement.access_book_purchase,access_book_purchase,librarymanagement.model_book_purchase,base.group_user,1,1,1,1

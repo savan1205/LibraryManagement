@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_book" model="ir.actions.report">
+            <field name="name">Book Report</field>
+            <field name="model">library.book</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">librarymanagement.report_bookorder</field>
+            <field name="report_file">librarymanagement.report_bookorder</field>
+            <field name="print_report_name">(object.name)</field>
+            <field name="binding_model_id" ref="model_library_book"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+
+
+<template id="report_bookreport_template">
+    <t t-call="web.external_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <div class="row mt32 mb32" id="informations">
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Hello: </strong>
+                    <p class="m-0" t-field="doc.Author"/>
+                </div>
+            </div>
+
+            <div class="row mt32 mb32" id="informations">
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>Your Book:</strong>
+                    <p class="m-0" t-field="doc.name"/>
+                    <p>Is on Top</p>
+                </div>   
+                <div class="col-auto col-3 mw-100 mb-2">
+                    <strong>With ISBN Number:</strong>
+                    <p class="m-0" t-field="doc.isbn_number"/>
+                </div>   
+            </div>
+        </div>
+        <br/><br/>
+
+
+        <!-- <table class="table table-sm o_main_table">
+            <thead style="display: table-row-group">
+                <tr>
+                    <th  class="text-left">Visiotor</th>
+                    <th  class="text-left">Purchase Date</th>
+                    <th  class="text-left">Submission Date</th>
+                    <th  class="text-left">Sell Type</th>
+                    <th  class="text-left">Price</th>
+                    <th  class="text-left">Quantity</th>
+                    <th  class="text-left">Sub Total</th>                      
+                </tr>
+            </thead>
+            
+            <tbody>
+
+
+                <t t-foreach="doc.sale_history_ids" t-as="line">
+                    <tr border= '1px solid black'>
+                        <td><t t-out="line.visitor_id.name"/></td>
+                        <td><t t-out="line.purchase_date"/></td>
+                        <td><t t-out="line.submission_date"/></td>
+                        <td><t t-out="line.sell_type"/></td>
+                        <td><t t-out="line.price"/></td>
+                        <td><t t-out="line.quantity"/></td>
+                        <td><t t-out="line.subtotal"/></td>
+                    </tr>                       
+                </t> 
+            </tbody>
+        </table>     -->
+    </t>
+</template>
+
+
+
+
+<template id="report_bookorder">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="librarymanagement.report_bookreport_template" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+
+
+    </data>
+</odoo>
